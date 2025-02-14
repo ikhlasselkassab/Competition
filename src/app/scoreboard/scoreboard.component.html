@@ -1,0 +1,27 @@
+<div class="scoreboard-container">
+  <h1 class="scoreboard-title">Classement de la Compétition 🏆</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>Rang</th>
+      <th>Nom</th>
+      <th>Score</th>
+      <th>Matchs Joués</th>
+      <th>Victoires</th>
+      <th>Défaites</th>
+      <th>Matchs Nuls</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let player of scoreboard">
+      <td>{{ player.rank }}</td>
+      <td>{{ player.name }}</td>
+      <td>{{ player.score }}</td>
+      <td>{{ player.totalPlayed }}</td>
+      <td>{{ player.winCount }}</td>
+      <td>{{ player.loseCount }}</td>
+      <td>{{ player.drawCount }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,4 +1,3 @@
-/* Styles généraux */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -90,3 +89,4 @@ tr:nth-child(2) td:first-child::before {
 tr:nth-child(3) td:first-child::before {
   content: "🥉 ";
 }
+
