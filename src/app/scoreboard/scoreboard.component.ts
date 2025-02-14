@@ -21,7 +21,7 @@ interface Player {
 
 @Component({
   selector: 'app-scoreboard',
-  imports: [NgFor],
+  imports: [NgFor,NgIf],
   templateUrl: './scoreboard.component.html',
   styleUrl: './scoreboard.component.css'
 })
