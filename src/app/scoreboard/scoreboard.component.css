@@ -89,4 +89,19 @@ tr:nth-child(2) td:first-child::before {
 tr:nth-child(3) td:first-child::before {
   content: "🥉 ";
 }
+.flash-green {
+  background-color: #90ee90 !important; /* Light green */
+  transition: background-color 2s ease-in-out;
+}
+
+.flash-red {
+  background-color: #ff6961 !important; /* Light red */
+  transition: background-color 2s ease-in-out;
+}
+.fade-out {
+  background-color: transparent !important;
+  transition: background-color 2s ease-in-out;
+}
+
+
 

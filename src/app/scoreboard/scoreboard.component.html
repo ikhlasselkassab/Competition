@@ -13,15 +13,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let player of scoreboard">
-      <td>{{ player.rank }}</td>
-      <td>{{ player.name }}</td>
-      <td>{{ player.score }}</td>
-      <td>{{ player.totalPlayed }}</td>
-      <td>{{ player.winCount }}</td>
-      <td>{{ player.loseCount }}</td>
-      <td>{{ player.drawCount }}</td>
+    <tr *ngFor="let team of scoreboard" [ngClass]="flashClasses[team.id]">
+      <td>
+        <span *ngIf="team.rank === 1">🥇</span>
+        <span *ngIf="team.rank === 2">🥈</span>
+        <span *ngIf="team.rank === 3">🥉</span>
+        {{ team.rank }}
+      </td>
+      <td>{{ team.name }}</td>
+      <td>{{ team.score }}</td>
+      <td>{{ team.totalPlayed }}</td>
+      <td>{{ team.winCount }}</td>
+      <td>{{ team.loseCount }}</td>
+      <td>{{ team.drawCount }}</td>
     </tr>
+
+
+
     </tbody>
   </table>
 </div>
