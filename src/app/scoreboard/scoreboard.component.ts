@@ -1,10 +1,11 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID,OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {interval, switchMap} from 'rxjs';
 import {isPlatformBrowser, NgFor, NgIf} from '@angular/common';
+import ScoreBoardAPI from "../config"
 
-const DURATION = 5000; // Refresh interval in milliseconds
-const API_URL = 'http://192.168.1.52:5000/getScoreBoard';
+const DURATION = 5000;
+const API_URL = ScoreBoardAPI;
 
 interface Player {
   deltaRank: number;
@@ -24,8 +25,9 @@ interface Player {
   templateUrl: './scoreboard.component.html',
   styleUrl: './scoreboard.component.css'
 })
-export class ScoreboardComponent implements OnInit {
+export class ScoreboardComponent implements OnInit, OnDestroy {
   scoreboard: any[] = [];
+  private refreshInterval: any;
 
   constructor(
     private http: HttpClient,
@@ -34,15 +36,26 @@ export class ScoreboardComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.http.get<any[]>('http://192.168.1.52:5000/getScoreBoard').subscribe(
-        (data) => {
-          console.log('Données reçues :', data);
-          this.scoreboard = data;
-        },
-        (error) => {
-          console.error('Erreur de requête API:', error);
-        }
-      );
+      this.refreshScoreboard();
+      this.refreshInterval = setInterval(() => this.refreshScoreboard(), DURATION);
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+    }
+  }
+
+  private refreshScoreboard(): void {
+    this.http.get<any[]>(API_URL).subscribe(
+      (data) => {
+        console.log('Données reçues :', data);
+        this.scoreboard = data;
+      },
+      (error) => {
+        console.error('Erreur de requête API:', error);
+      }
+    );
   }
 }
