@@ -21,8 +21,9 @@ interface Player {
 
 @Component({
   selector: 'app-scoreboard',
-  imports: [NgFor,NgIf],
+  imports: [NgFor, NgIf],
   templateUrl: './scoreboard.component.html',
+  standalone: true,
   styleUrl: './scoreboard.component.css'
 })
 export class ScoreboardComponent implements OnInit, OnDestroy {

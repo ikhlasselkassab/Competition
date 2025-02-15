@@ -8,6 +8,7 @@ import {HeaderComponent} from './header/header.component';
   selector: 'app-root',
   imports: [ScoreboardComponent, HttpClientModule, HeaderComponent, RouterOutlet],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
