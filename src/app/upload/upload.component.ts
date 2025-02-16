@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {NgClass, NgIf} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {UploadAPI} from '../config';
 
 @Component({
   selector: 'app-upload',
   imports: [
     NgClass,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   templateUrl: './upload.component.html',
   standalone: true,
@@ -14,36 +17,35 @@ import {NgClass, NgIf} from '@angular/common';
 })
 export class UploadComponent {
 
-  file: File | null = null;  // file can be null initially
+  file: string = "import java.util.*;\n\npublic class Strategy implements Playable{\n\n\tpublic Strategy(){}\n\n}";
   message = '';
   isSuccess = false;
-
-  onFileSelected(event: any): void {
-    const selectedFile = event.target.files[0];
-
-    if (selectedFile && selectedFile.name.endsWith('.java')) {
-      this.file = selectedFile;
-      this.message = '';
-    } else {
-      this.message = 'Please select a .java file!';
-      this.isSuccess = false;
-    }
+  constructor(
+    private http: HttpClient,
+  ) {}
+  resetFile():void{
+    this.file="import java.util.*;\n\npublic class Strategy implements Playable{\n\n\tpublic Strategy(){}\n\n}";
   }
-
   uploadFile(): void {
-    if (this.file) {  // Check if file is selected
-      // Simulate file upload
-      setTimeout(() => {
-        // Here you can add logic to simulate success or error based on file validation
-        if (this.file!.name.endsWith('.java')) {  // Use non-null assertion here
-          this.message = 'File uploaded successfully!';
-          this.isSuccess = true;
-        } else {
-          this.message = 'File upload failed!';
+    if (!this.file) {
+      console.log("ERROR: No file content provided");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('Code', this.file);
+
+    this.http.post<{ success: boolean; message: string }>(UploadAPI, formData)
+      .subscribe({
+        next: (response) => {
+          this.message = response.message;
+          this.isSuccess = response.success;
+        },
+        error: (error) => {console.log(error)
+          this.message = 'Upload error:'+ error.message;
           this.isSuccess = false;
         }
-      }, 1000);  // Simulate delay
-    }
+      });
   }
 
 }

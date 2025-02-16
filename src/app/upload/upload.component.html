@@ -1,14 +1,10 @@
 <div class="upload-container">
-  <h2>Upload a .java file</h2>
-
-  <!-- Hidden input with label trigger -->
-  <input type="file" id="fileInput" (change)="onFileSelected($event)" />
-  <label for="fileInput">Choose a file</label>
-
-  <!-- Upload button -->
-  <button (click)="uploadFile()">Upload</button>
-
-  <!-- Message area -->
+  <h2>Print your code</h2>
+  <textarea [(ngModel)]="file" class="Code_Area" rows="5"></textarea>
+  <div>
+  <button (click)="uploadFile()" style="background: green;margin: 20px">Upload</button>
+    <button (click)="resetFile()" style="background: red">Reset code</button>
+  </div>
   <div *ngIf="message" [ngClass]="{ 'success': isSuccess, 'error': !isSuccess }" class="message">
     {{ message }}
   </div>
