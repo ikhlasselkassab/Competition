@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, inject, NgModule} from '@angular/core';
+import {Router, RouterOutlet, RouterModule} from '@angular/router';
 import {ScoreboardComponent} from './scoreboard/scoreboard.component';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {HeaderComponent} from './header/header.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [ScoreboardComponent, HttpClientModule, HeaderComponent, RouterOutlet],
+  imports: [HeaderComponent, RouterOutlet,NgIf,RouterModule],
   templateUrl: './app.component.html',
   standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  private router = inject(Router);
   title = 'competition';
+  loggedIn():boolean{
+    return !this.router.url.startsWith("/Login")
+  }
 }
