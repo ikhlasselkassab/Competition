@@ -12,7 +12,7 @@ import {NgForOf} from '@angular/common';
 })
 export class DownloadComponent {
   files = [
-    { name: 'File1.java', url: 'assets/files/File1.java' },
+    { name: 'Strategy.java', url: 'assets/examples/example1.zip' },
     { name: 'File2.java', url: 'assets/files/File2.java' },
     { name: 'File3.java', url: 'assets/files/File3.java' }
   ];

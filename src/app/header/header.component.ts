@@ -9,5 +9,7 @@ import {Component, Input} from '@angular/core';
 })
 export class HeaderComponent {
   @Input() teamName: string = "Team"
-
+  ngOnInit():void{
+    this.teamName=JSON.parse(<string>localStorage.getItem('credentials')).username;
+  }
 }

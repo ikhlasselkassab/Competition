@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.checkLocalStorageAndLogin();
+    //this.checkLocalStorageAndLogin();
   }
 
   checkLocalStorageAndLogin(): void {
@@ -36,11 +36,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.credentials).subscribe(
       (response) => {
         localStorage.setItem('credentials', JSON.stringify(this.credentials));
-        this.router.navigate(['/ScoreBoard']); // Redirect to the main page after successful login
+        this.router.navigate(['/ScoreBoard']);
       },
       (error) => {
         console.error('Login failed', error);
-        this.router.navigate(['/Login']); // Redirect back to login if login fails
+        localStorage.removeItem('credentials');
+        this.router.navigate(['/Login']);
       }
     );
   }

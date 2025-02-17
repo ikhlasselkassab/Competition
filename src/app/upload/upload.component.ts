@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {UploadAPI} from '../config';
+import {response} from 'express';
 
 @Component({
   selector: 'app-upload',
@@ -33,8 +34,8 @@ export class UploadComponent {
     }
 
     const formData = new FormData();
-    formData.append('Code', this.file);
-
+    formData.append('code', this.file);
+    formData.append('credentials',<string> localStorage.getItem('credentials'))
     this.http.post<{ success: boolean; message: string }>(UploadAPI, formData)
       .subscribe({
         next: (response) => {
@@ -42,7 +43,7 @@ export class UploadComponent {
           this.isSuccess = response.success;
         },
         error: (error) => {console.log(error)
-          this.message = 'Upload error:'+ error.message;
+          this.message = error.statusMessage;
           this.isSuccess = false;
         }
       });
