@@ -12,9 +12,10 @@ import {NgForOf} from '@angular/common';
 })
 export class DownloadComponent {
   files = [
-    { name: 'Strategy.java', url: 'assets/examples/example1.zip' },
-    { name: 'File2.java', url: 'assets/files/File2.java' },
-    { name: 'File3.java', url: 'assets/files/File3.java' }
+    { name: 'exemple1.zip', url: 'assets/examples/example1.zip' },
+    { name: 'Option.java', url: 'assets/examples/game/Option.java' },
+    { name: 'Playable.java', url: 'assets/examples/game/Playable.java' },
+    { name: 'Strategy.java', url: 'assets/examples/game/Strategy.java' }
   ];
 
   downloadFile(fileUrl: string) {
