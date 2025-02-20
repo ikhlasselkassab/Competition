@@ -47,8 +47,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    //this.login();
-    this.router.navigate(['/ScoreBoard']);
+    this.login();
 
   }
 
